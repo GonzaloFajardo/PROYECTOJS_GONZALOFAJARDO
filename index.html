@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Javascript - CoderHouse</title>
+
+    <link rel="stylesheet" href="bootstrap.css" />
+    <!-- CDN sweetalert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- CDN Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- CDN Luxon -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
+
+  </head>
+  <body>
+    <!-- MENU DE NAVEGACIÓN -->
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Coder-Commerce</span>
+        <button class="btn btn-primary"><a href="#carrito">Mi carrito</a></button>
+      </div>
+    </nav>
+    
+    <!-- CONTENEDOR DE PRODUCTOS -->
+    <div class="container-products">
+      <div class="row" id="contenedorProducto">
+      </div>
+    </div>
+    
+    <!-- ESPACIO PARA MOSTRAR INFO DEL CARRITO -->
+    <div id="carrito"></div>
+
+    <!-- BOTON DE COMPRAR -->
+    <button class="alert-btn" id="btnComprar">COMPRAR</button>
+
+    <!-- FORMULARIO DE CONTACTO -->
+    <div class="container">
+      <div class="container">
+        <h2>FORMULARIO DE CONTACTO</h2>
+      </div>
+      <form id="formulario" action="/redireccion">
+
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label"
+          >Nombre y Apellido</label
+          >
+          <input type="text" class="form-control" id="nombre" required/>
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput2" class="form-label"
+          >Correo Electrónico</label
+          >
+          <input type="text" class="form-control" id="correo" required/>
+        </div>
+        <button type="submit" class="btn btn-outline-success">
+          Enviar información
+        </button>
+      </div>
+    </form>
+    <!-- ESPACIO PARA MOSTRAR INFO DEL FORMULARIO -->
+    <div class="container">
+      <div class="info"></div>
+    </div>
+      
+    <!-- FORMULARIO DE RESERVA -->
+    <div class="container">
+      <select class="form-select mt-5" id="day">
+        <option selected>Selecciona el día</option>
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miercoles">Miercoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+      </select>
+      
+      <select class="form-select mt-5" id="hr">
+        <option selected>Selecciona la hora</option>
+        <option value="15:00">15:00 Hs</option>
+        <option value="18:00">18:00 Hs</option>
+        <option value="21:00">21:00 Hs</option>
+      </select>
+  
+    <button type="submit" class="btn-reservar btn btn-primary mt-5">Reservar</button>
+      <div class="selector mt-5">Detalles de tu reserva</div>
+  </div>
+  <button class="alert-btn" id="alerta">Alertas</button>
+  <div id="listado"></div>
+    <!-- SCRIPTS -->
+    <script src="./scripts/proyectofinal.js"></script>
+    <!-- Script Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+  </body>
+  </html>
+  
