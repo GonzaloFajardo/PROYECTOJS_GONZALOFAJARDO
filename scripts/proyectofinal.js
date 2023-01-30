@@ -26,6 +26,8 @@ const mostrarInfo = formulario.addEventListener("submit", function (e) {
   e.preventDefault();
 
   if (nombreForm.value == " ") {
+
+    
     info.innerHTML = `
     <div class="alert alert-warning" role="alert">
   <h5> Por favor ingrese un nombre valido.</h5></div>`;
@@ -35,9 +37,21 @@ const mostrarInfo = formulario.addEventListener("submit", function (e) {
     <div class="alert alert-warning" role="alert">
   <h5> Por favor ingrese un correo valido.</h5></div>`;
   } else{
+
+    //Guardando el dato del nombre en el storage y montrandolo en el info.inner
+    const inputNombre = document.getElementById("nombre").value;
+    localStorage.setItem("myInputNombre", inputNombre);
+    const localNombre = localStorage.getItem("myInputNombre");
+
+
+    //Guardando el dato del correo en el storage y montrandolo en el info.inner
+    const inputCorreo = document.getElementById("correo").value;
+    localStorage.setItem("myInputCorreo", inputCorreo);
+    const localCorreo = localStorage.getItem("myInputNombre");
+
     info.innerHTML = `
     <div class="alert alert-warning" role="alert">
-  <h5> Muchas gracias ${nombreForm.value} por tu mensaje, te responderemos a ${correoForm.value} para concretar detalles de tu compra.</h5></div>`;
+  <h5> Muchas gracias ${localNombre} por tu mensaje, te responderemos a ${localCorreo} para concretar detalles de tu compra.</h5></div>`;
   Swal.fire(
     'Gracias!',
     'pronto nos estaremos contactando con usted!',
@@ -46,6 +60,54 @@ const mostrarInfo = formulario.addEventListener("submit", function (e) {
   }
 
 });
+
+//MOSTRAR EL STOCK DE LOS PRODUCTOS
+
+// OBTENEMOS EL ESPACIO PARA MOSTRAR EL STOCK DEL PRODUCTO
+let infoProducto = document.querySelector("#infoProductos");
+
+
+// FUNCION PARA COGER EL VALOR DEL JSON Y COMPARARLO CON EL BUSCADOR
+const findProdById = (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+    fetch("./data.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const prod = data.find((item) => item.id === id);
+        if (prod) {
+          resolve(prod);
+
+          // SE MUESTRA EN EL DOM EL NOMBRE Y PRECIO DEL PRODUCTO INDICADO
+          infoProducto.innerHTML = `
+    <div class="alert alert-warning" role="alert">
+  <h5> Muchas gracias por su interes el ${prod.nombre} se encuentra disponible y cuesta ${prod.precio} para concretar llena el formulario.</h5></div>`;
+          
+        } else {
+          reject("No se encuentra el producto");
+          infoProducto.innerHTML = "no se encuentra el producto"
+        }
+      }, 1000);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+// SE AGREGA LAS VARIABLES PARA CAPTURAR AL INPUT Y EL BOTON PARA BUSCAR EL PRODUCTO
+const inputId = document.getElementById("buscador");
+const button = document.getElementById("btnBuscar");
+
+// EVENTO PARA ACTIVAR CON CLICK LA FUNCION DONDE COMPARA EL IMPUT CON EL JSON
+button.addEventListener("click", () => {
+  const id = parseInt(inputId.value, 10);
+
+  findProdById(id)
+    .then((prod) => console.log(prod))
+    .catch((err) => console.log(err));
+});
+
+
+
 
 //////---------PRODUCTOS DOM-------------//////
 
@@ -173,8 +235,18 @@ let optionSelected = document.querySelectorAll(".form-select");
 let btnreservar = document.querySelector(".btn-reservar");
 
 btnreservar.addEventListener("click", function () {
-  let dia = document.querySelector("#day").value;
-  let hora = document.querySelector("#hr").value;
+
+  //Guardando el dato del dia en el storage y montrandolo en el selector
+  const inputDia = document.querySelector("#day").value;
+    localStorage.setItem("myInputDia", inputDia);
+    const localDia = localStorage.getItem("myInputDia");
+
+    //Guardando el dato de la hora en el storage y montrandolo en el selector
+    const inputHora = document.querySelector("#hr").value;
+    localStorage.setItem("myInputHora", inputHora);
+    const localHora = localStorage.getItem("myInputHora");
+
+
   
   Swal.fire(
     'Gracias!',
@@ -185,7 +257,7 @@ btnreservar.addEventListener("click", function () {
   let selector = document.querySelector(".selector");
   selector.innerHTML = `
   <div class="alert alert-success" role="alert">
-  <h5>Vas a asistir el dia ${dia} a las ${hora} hs.</h5>
+  <h5>Vas a asistir el dia ${localDia} a las ${localHora} hs.</h5>
   </div>`;
 });
 
@@ -225,6 +297,9 @@ const activarAlerta = alerta.addEventListener("click", function (e) {
 });
 
 
-//prueba comprar carrito
+
+
+
+
 
 
